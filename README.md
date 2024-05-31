@@ -10,7 +10,7 @@ String to prefix the version string with. Default `""`.
 
 ### `default_branch`
 
-Name of the default branch. For builds from other branches, the branch name is used as a pre-release suffix in the environment variable and output. Default `refs/heads/main`.
+Name of the default branch(es). For builds from other branches, the branch name is used as a pre-release suffix in the environment variable and output. Default `refs/heads/main`. Define multiple branches by seperating them with `|`.
 
 ### `format`
 

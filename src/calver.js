@@ -35,7 +35,8 @@ class Calver {
     const dateString = dayjs(_date).format(_options.format);
     //determine prerelease suffix
     let suffix = '';
-    if (_options.currentRef != _options.defaultBranch) {
+    const branches = _options.defaultBranch.split('|');
+    if (!branches.includes(_options.currentRef)) {
       suffix = _options.currentRef
         .split('/')[2] // take the third token from the branch ref
         .replace(/[^a-z0-9]/gi, '-') // replace nonalphanumeric chatacters with '-'

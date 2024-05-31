@@ -184,6 +184,67 @@ describe('prerelease', () => {
     expect(sut.VersionShort).toBe(expected.VersionShort);
     expect(sut.PrereleseSuffix).toBe(expected.PrereleseSuffix);
   });
+  test('makeVersion : for multiple default branches', async () => {
+    const options1 = {
+      defaultBranch: 'refs/heads/main|refs/heads/master',
+      currentRef:
+        'refs/heads/master',
+      buildNumber: 1,
+      prefix: '',
+      format: 'YYYY.MM.DD',
+    };
+    const options2 = {
+      defaultBranch: 'refs/heads/main|refs/heads/master',
+      currentRef:
+        'refs/heads/main',
+      buildNumber: 1,
+      prefix: '',
+      format: 'YYYY.MM.DD',
+    };
+    const options3 = {
+      defaultBranch: 'refs/heads/main|refs/heads/master',
+      currentRef:
+        'refs/heads/dev',
+      buildNumber: 1,
+      prefix: '',
+      format: 'YYYY.MM.DD',
+    };
+
+    const date = new Date('2022-01-01').toUTCString();
+    const expected1 = {
+      VersionFull: '2022.01.01.1',
+      VersionShort: '2022.01.01.1',
+      PrereleseSuffix: '',
+    };
+    const expected2 = {
+      VersionFull: '2022.01.01.1',
+      VersionShort: '2022.01.01.1',
+      PrereleseSuffix: '',
+    };
+    const expected3 = {
+      VersionFull: '2022.01.01.1-dev',
+      VersionShort: '2022.01.01.1',
+      PrereleseSuffix: 'dev',
+    };
+
+    const sut1 = new Calver(date, options1);
+    await sut1.makeVersion();
+    expect(sut1.VersionFull).toBe(expected1.VersionFull);
+    expect(sut1.VersionShort).toBe(expected1.VersionShort);
+    expect(sut1.PrereleseSuffix).toBe(expected1.PrereleseSuffix);
+
+    const sut2 = new Calver(date, options2);
+    await sut2.makeVersion();
+    expect(sut2.VersionFull).toBe(expected2.VersionFull);
+    expect(sut2.VersionShort).toBe(expected2.VersionShort);
+    expect(sut2.PrereleseSuffix).toBe(expected2.PrereleseSuffix);
+
+    const sut3 = new Calver(date, options3);
+    await sut3.makeVersion();
+    expect(sut3.VersionFull).toBe(expected3.VersionFull);
+    expect(sut3.VersionShort).toBe(expected3.VersionShort);
+    expect(sut3.PrereleseSuffix).toBe(expected3.PrereleseSuffix);
+  });
 });
 
 describe('errors', () => {

@@ -1,4 +1,4 @@
-name: 'Set Calver Version'
+name: 'Set Calver Version(with multiple default branches)'
 description: 'Calculate Calver version and set PACKAGE_VERSION environment variables.'
 inputs:
   version_prefix:
@@ -8,7 +8,7 @@ inputs:
   default_branch:
     default: 'refs/heads/main'
     required: false
-    description: 'Name of the default branch'
+    description: 'Name of the default branch(es)'
   format:
     default: 'YY.M.D'
     required: true
